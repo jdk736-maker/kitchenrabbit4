@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KitchenRabbit4</title>
+
+<style>
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f7f4ee;
+  color:#252525;
+}
+
+header {
+  background:#24352d;
+  color:white;
+  padding:28px 20px 22px;
+}
+
+header h1 {
+  margin:0;
+  font-size:30px;
+}
+
+header p {
+  margin:6px 0 0;
+  opacity:.8;
+}
+
+main {
+  padding:18px 16px 100px;
+  max-width:700px;
+  margin:auto;
+}
+
+.card {
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.recipe-img {
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  background:#ddd;
+}
+
+.content {
+  padding:18px;
+}
+
+h2 {
+  margin:0 0 8px;
+}
+
+.meta {
+  color:#777;
+  margin-bottom:18px;
+}
+
+h3 {
+  margin-top:22px;
+}
+
+li {
+  margin-bottom:8px;
+}
+
+.wine {
+  background:#f1eee7;
+  padding:13px;
+  border-radius:12px;
+  margin:9px 0;
+}
+
+.page {
+  display:none;
+}
+
+.page.active {
+  display:block;
+}
+
+input, button {
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  font-size:16px;
+}
+
+input {
+  border:1px solid #ccc;
+  margin:8px 0 12px;
+}
+
+button {
+  border:0;
+  background:#24352d;
+  color:white;
+  font-weight:bold;
+}
+
+nav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 3px 14px;
+  box-shadow:0 -3px 15px rgba(0,0,0,.12);
+}
+
+nav button {
+  background:none;
+  color:#333;
+  padding:7px 3px;
+  font-size:12px;
+  width:auto;
+}
+
+.icon {
+  display:block;
+  font-size:22px;
+  margin-bottom:3px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>KitchenRabbit4</h1>
+  <p>Kochen & Wein</p>
+</header>
+
+<main>
+
+<section id="recipes" class="page active">
+
+  <div class="card">
+    <div class="content">
+      <h2>Seeviche vom Saibling</h2>
+      <div class="meta">⏱ ca. 1 Std. 30 Min. · 4 Personen</div>
+
+      <h3>Zutaten</h3>
+      <ul>
+        <li>600 g sehr frisches Saiblingsfilet ohne Haut</li>
+        <li>1 große Süßkartoffel</li>
+        <li>1 rote Zwiebel</li>
+        <li>1 Bund Radieschen</li>
+        <li>40 ml Dillöl oder Olivenöl</li>
+        <li>Cayennepfeffer und Salz</li>
+        <li>200 g Sellerie</li>
+        <li>200 g Rhabarber</li>
+        <li>100 g Zwiebeln</li>
+        <li>1 Knoblauchzehe</li>
+        <li>15 g Ingwer</li>
+        <li>1 grüne Chili</li>
+        <li>20 g Koriander</li>
+        <li>50 ml Limettensaft</li>
+      </ul>
+
+      <h3>Zubereitung</h3>
+      <
