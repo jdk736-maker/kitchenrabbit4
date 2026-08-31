@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KitchenRabbit4</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f7f4ee;color:#252525;padding-bottom:76px}
+header{background:#24352d;color:#fff;padding:24px 22px 20px} header h1{margin:0;font-size:32px} header p{margin:8px 0 0;color:#ddd}
+main{max-width:850px;margin:auto;padding:18px}.card{background:#fff;border-radius:24px;padding:20px;margin:0 0 18px;box-shadow:0 8px 24px #00000012}
+.hero{width:100%;max-height:320px;object-fit:cover;border-radius:18px;background:#e8e3d8}.meta{color:#777;margin:8px 0 20px}
+h2{margin:12px 0} h3{margin:20px 0 8px} li{margin:8px 0;line-height:1.45}.steps{padding-left:22px}
+.wines{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wine{background:#f3eee4;border-radius:16px;padding:14px}.wine b{display:block}
+button,.btn{border:0;border-radius:14px;background:#24352d;color:white;padding:12px 16px;font-weight:700} input{width:100%;padding:13px;border:1px solid #ccc;border-radius:12px;margin:6px 0 12px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:10px 3px;z-index:5}
+nav button{background:none;color:#555;padding:7px;font-size:12px}.view{display:none}.view.active{display:block}.small{font-size:13px;color:#777}.wine-list .wine{margin-bottom:10px}
+@media(max-width:550px){.wines{grid-template-columns:1fr}header h1{font-size:28px}}
+</style>
+</head>
+<body>
+<header><h1>KitchenRabbit4</h1><p>Kochen & Wein</p></header>
+<main>
+<section id="recipes" class="view active">
+  <article class="card">
+    <h2>Seeviche vom Saibling</h2>
+    <div class="meta">⏱ ca. 1 Std. 30 Min. · 4 Personen</div>
+    <h3>Zutaten</h3>
+    <ul>
+      <li>600 g sehr frisches Saiblingsfilet ohne Haut</li><li>1 große Süßkartoffel (ca. 500 g)</li><li>1 rote Zwiebel</li>
+      <li>1 Bund Radieschen samt Grün</li><li>40 ml Dillöl oder grasiges Olivenöl</li><li>Cayennepfeffer und Salz</li>
+      <li>200 g Sellerie</li><li>200 g Rhabarber</li><li>100 g Zwiebeln</li><li>1 Knoblauchzehe</li>
+      <li>15 g Ingwer</li><li>1 scharfe grüne Chili</li><li>20 g frischer Koriander</li>
+      <li>300 g Eiswürfel bzw. sehr kaltes Wasser</li><li>50 ml Limettensaft</li>
+    </ul>
+    <h3>Zubereitung</h3>
+    <ol class="steps">
+      <li>Backofen auf 180 °C Umluft vorheizen. Süßkartoffel im Ganzen etwa 1½ Stunden weich backen.</li>
+      <li>Sellerie, Rhabarber, Zwiebeln, Knoblauch, Ingwer, Chili, Koriander und Radieschengrün grob schneiden und mit Eis sehr fein mixen. Mit Salz und Limettensaft kräftig säuerlich abschmecken.</li>
+      <li>Saibling in etwa 1 cm große Würfel schneiden.</li>
+      <li>Rote Zwiebel in feine Ringe schneiden, mehrmals waschen und in Eiswasser legen. Radieschen fein hobeln und ebenfalls in Eiswasser legen.</li>
+      <li>Fisch und Zwiebel mit der Marinade vermengen und etwa 5 Minuten ziehen lassen.</li>
+      <li>Weiche Süßkartoffel zerdrücken und mit Salz und Cayenne abschmecken.</li>
+      <li>Süßkartoffel auf Teller geben, Seeviche darauf anrichten, Radieschen ergänzen und mit Dillöl beträufeln.</li>
+    </ol>
+    <h3>🍷 Zwei Weinempfehlungen</h3>
+    <div class="wines">
+      <div class="wine"><b>Weingut Zimmermann</b>Weißburgunder 2024<br><span class="small">Nahe · frisch und elegant</span></div>
+      <div class="wine"><b>Wolfberger</b>Crémant Cuvée<br><span class="small">Alsace · lebendig und feinperlig</span></div>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2>Pulled Lachs mit Wintersalat & geröstetem Rosenkohl</h2>
+    <div class="meta">⏱ ca. 60 Min. · 4 Portionen</div>
+    <h3>Zutaten</h3>
+    <ul>
+      <li>500 g Lachsfilet</li><li>2 EL Sriracha</li><li>1 EL Honig</li><li>1 EL helle Sojasauce</li><li>Salz und Pfeffer</li>
+      <li>¼ Kopf Frisée oder anderer Wintersalat</li><li>500 g Rosenkohl</li><li>1 TL Zucker</li><li>4 EL Olivenöl</li>
+      <li>1 Orange oder Blutorange</li><li>1 EL neutrales Öl</li>
+      <li>30 ml Fruchtessig</li><li>1 TL Dijon-Senf</li><li>80 g Olivenöl</li><li>1 TL Honig</li><li>1 EL frisch gerösteter Mohn</li>
+    </ul>
+    <h3>Zubereitung</h3>
+    <ol class="steps">
+      <li>Backofen auf 180 °C Ober-/Unterhitze vorheizen.</li>
+      <li>Vom Rosenkohl einige Blätter lösen, restliche Röschen halbieren. Mit Olivenöl und Salz mischen und mit Zucker bestreuen.</li>
+      <li>Rosenkohl etwa 25 Minuten rösten. Nach 10 Minuten die einzelnen Blätter dazugeben und knusprig rösten.</li>
+      <li>Für das Dressing Essig, Dijon-Senf, Olivenöl, Honig und Mohn verrühren; mit Salz und Pfeffer abschmecken.</li>
+      <li>Sriracha, Honig und Sojasauce verrühren. Lachs würzen, mit der Hautseite nach unten in eine ofenfeste Form legen und glasieren.</li>
+      <li>Lachs 15 Minuten garen, anschließend bei etwa 230 °C Grillfunktion weitere 5–10 Minuten bräunen.</li>
+      <li>Orange in Scheiben schneiden und in wenig neutralem Öl kurz anrösten.</li>
+      <li>Salat, Rosenkohl und Dressing anrichten. Lachs von der Haut zupfen und zusammen mit den Orangenscheiben darauf verteilen.</li>
+    </ol>
+    <h3>🍷 Zwei Weinempfehlungen</h3>
+    <div class="wines">
+      <div class="wine"><b>WG Mayschoß-Altenahr</b>Blanc de Noir 2025<br><span class="small">Ahr · fruchtig und frisch</span></div>
+      <div class="wine"><b>Weingut Zimmermann</b>Weißburgunder 2024<br><span class="small">Nahe · ausgewogen zum Lachs</span></div>
+    </div>
+  </article>
+</section>
+
+<section id="import" class="view"><div class="card"><h2>Rezept importieren</h2><p>Füge hier eine Rezept-URL ein.</p><input id="url" type="url" placeholder="https://…"><button onclick="importRecipe()">Rezept übernehmen</button><p id="importMsg" class="small"></p><p class="small">Hinweis: Die APK arbeitet lokal. Für einen vollautomatischen Abruf beliebiger Webseiten wird später ein Online-Dienst benötigt.</p></div></section>
+
+<section id="wines" class="view"><div class="card"><h2>Meine Weine</h2><p>Weinliste aus CSV/XLS/XLSX auswählen:</p><input id="wineFile" type="file" accept=".csv,.xls,.xlsx"><button onclick="saveWineFile()">Weinliste auswählen</button><p id="wineMsg" class="small"></p><div class="wine-list">
+<div class="wine"><b>Mayschoß-Altenahr</b>Blanc de Noir 2025 · Ahr</div>
+<div class="wine"><b>Famille Perrin</b>Côtes du Rhône 2019 · Rhône</div>
+<div class="wine"><b>Knipser</b>Blauer Spätburgunder 2019 · Pfalz</div>
+<div class="wine"><b>Weingut Zimmermann</b>Weißburgunder 2024 · Nahe</div>
+<div class="wine"><b>Wolfberger</b>Crémant Cuvée · Alsace</div>
+<div class="wine"><b>Weingut Franzmann</b>Niederhäuser Felsensteyer 2023 · Nahe</div>
+<div class="wine"><b>Maison Johanès Boubée</b>Monbazillac Réserve · Sud-Ouest</div>
+<div class="wine"><b>Weingut Franzmann</b>Niederhäuser Klamm 2023 · Nahe</div>
+</div></div></section>
+
+<section id="favorites" class="view"><div class="card"><h2>Favoriten</h2><p>Hier können wir als Nächstes deine Lieblingsrezepte speichern.</p></div></section>
+<section id="shopping" class="view"><div class="card"><h2>Einkaufsliste</h2><p>Hier können wir als Nächstes Zutaten aus Rezepten automatisch sammeln.</p></div></section>
+</main>
+<nav>
+<button onclick="show('recipes')">🍽️<br>Rezepte</button><button onclick="show('import')">➕<br>Import</button>
+<button onclick="show('wines')">🍷<br>Weine</button><button onclick="show('favorites')">♥<br>Favoriten</button>
+<button onclick="show('shopping')">🛒<br>Einkauf</button>
+</nav>
+<script>
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function importRecipe(){const u=document.getElementById('url').value.trim();document.getElementById('importMsg').textContent=u?'URL gespeichert. Der automatische Web-Import wird im nächsten Schritt mit dem Online-Backend verbunden.':'Bitte zuerst eine URL eingeben.';if(u)localStorage.setItem('kitchenrabbit_last_url',u)}
+function saveWineFile(){const f=document.getElementById('wineFile').files[0];document.getElementById('wineMsg').textContent=f?'Ausgewählt: '+f.name+'. Der vollständige Tabellenimport wird im nächsten Schritt angebunden.':'Bitte eine Datei auswählen.'}
+</script>
+</body>
+</html>
