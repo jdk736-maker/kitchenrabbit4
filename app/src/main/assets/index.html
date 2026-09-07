@@ -82,11 +82,27 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.view{display:n
       <div class="wine"><b>Weingut Zimmermann</b>Weißburgunder 2024<br><span class="small">Nahe · ausgewogen zum Lachs</span></div>
     </div>
   </article>
+nline-Dienst benötigt.</p></div></section>
+
+<section id="import" class="view">
+  <div class="card">
+    <h2>➕ Rezept importieren</h2>
+    <p>Füge die URL einer Rezeptseite ein.</p>
+
+    <input
+      id="url"
+      type="url"
+      placeholder="https://www.beispiel.de/rezept/..."
+      style="width:100%;padding:14px;border:1px solid #ccc;border-radius:12px;font-size:16px;margin:10px 0;"
+    >
+
+    <button onclick="importRecipe()" style="width:100%;">
+      Rezept hinzufügen
+    </button>
+
+    <p id="importStatus" class="small"></p>
+  </div>
 </section>
-
-<section id="import" class="view"><div class="card"><h2>Rezept importieren</h2><p>Füge hier eine Rezept-URL ein.</p><input id="url" type="url" placeholder="https://…"><button onclick="importRecipe()">Rezept übernehmen</button><p id="importMsg" class="small"></p><p class="small">Hinweis: Die APK arbeitet lokal. Für einen vollautomatischen Abruf beliebiger Webseiten wird später ein Online-Dienst benötigt.</p></div></section>
-
-<section id="wines" class="view"><div class="card"><h2>Meine Weine</h2><p>Weinliste aus CSV/XLS/XLSX auswählen:</p><input id="wineFile" type="file" accept=".csv,.xls,.xlsx"><button onclick="saveWineFile()">Weinliste auswählen</button><p id="wineMsg" class="small"></p><div class="wine-list">
 <div class="wine"><b>Mayschoß-Altenahr</b>Blanc de Noir 2025 · Ahr</div>
 <div class="wine"><b>Famille Perrin</b>Côtes du Rhône 2019 · Rhône</div>
 <div class="wine"><b>Knipser</b>Blauer Spätburgunder 2019 · Pfalz</div>
@@ -107,7 +123,227 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.view{display:n
 </nav>
 <script>
 function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function importRecipe(){const u=document.getElementById('url').value.trim();document.getElementById('importMsg').textContent=u?'URL gespeichert. Der automatische Web-Import wird im nächsten Schritt mit dem Online-Backend verbunden.':'Bitte zuerst eine URL eingeben.';if(u)localStorage.setItem('kitchenrabbit_last_url',u)}
+function importRecipe() {
+  const url = document.getElementById('url').value.trim();
+  const status = document.getElementById('importStatus');
+
+  if (!url) {
+    status.textContent = 'Bitte zuerst eine Rezept-URL eingeben.';
+    return;
+  }
+
+  status.textContent = 'Rezept wird geladen …';
+
+  if (window.AndroidRecipe) {
+    AndroidRecipe.loadRecipe(url);
+  } else {
+    status.textContent = 'Android-Rezeptimport ist nicht verfügbar.';
+  }
+}
+
+window.receiveRecipeHtml = function(html) {
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    let recipe = null;
+
+    const blocks = doc.querySelectorAll('script[type="application/ld+json"]');
+
+    for (const block of blocks) {
+      try {
+        const data = JSON.parse(block.textContent);
+
+        const findRecipe = (obj) => {
+          if (!obj) return null;
+
+          if (Array.isArray(obj)) {
+            for (const item of obj) {
+              const found = findRecipe(item);
+              if (found) return found;
+            }
+          }
+
+          if (typeof obj === 'object') {
+            if (obj['@type'] === 'Recipe') return obj;
+
+            if (Array.isArray(obj['@type']) &&
+                obj['@type'].includes('Recipe')) {
+              return obj;
+            }
+
+            if (obj['@graph']) {
+              const found = findRecipe(obj['@graph']);
+              if (found) return found;
+            }
+          }
+
+          return null;
+        };
+
+        recipe = findRecipe(data);
+
+        if (recipe) break;
+
+      } catch (e) {}
+    }
+
+    if (!recipe) {
+      document.getElementById('importStatus').textContent =
+        'Auf dieser Seite konnten keine strukturierten Rezeptdaten gefunden werden.';
+      return;
+    }
+
+    const image =
+      Array.isArray(recipe.image)
+        ? recipe.image[0]
+        : typeof recipe.image === 'object'
+        ? recipe.image.url
+        : recipe.image || '';
+
+    const ingredients = recipe.recipeIngredient || [];
+
+    const instructions = [];
+
+    const extractSteps = (steps) => {
+      if (!steps) return;
+
+      if (typeof steps === 'string') {
+        instructions.push(steps);
+        return;
+      }
+
+      if (Array.isArray(steps)) {
+        steps.forEach(extractSteps);
+        return;
+      }
+
+      if (steps.text) {
+        instructions.push(steps.text);
+      }
+
+      if (steps.itemListElement) {
+        extractSteps(steps.itemListElement);
+      }
+    };
+
+    extractSteps(recipe.recipeInstructions);
+
+    const importedRecipe = {
+      name: recipe.name || 'Neues Rezept',
+      image: image,
+      yield: recipe.recipeYield || '',
+      prepTime: recipe.prepTime || '',
+      cookTime: recipe.cookTime || '',
+      totalTime: recipe.totalTime || '',
+      ingredients: ingredients,
+      instructions: instructions,
+      source: document.getElementById('url').value.trim()
+    };
+
+    saveImportedRecipe(importedRecipe);
+
+  } catch (e) {
+    document.getElementById('importStatus').textContent =
+      'Fehler beim Verarbeiten des Rezepts.';
+  }
+};
+
+window.recipeImportError = function(message) {
+  document.getElementById('importStatus').textContent =
+    'Import fehlgeschlagen: ' + message;
+};
+
+function saveImportedRecipe(recipe) {
+  const saved =
+    JSON.parse(localStorage.getItem('kitchenrabbit_recipes') || '[]');
+
+  saved.push(recipe);
+
+  localStorage.setItem(
+    'kitchenrabbit_recipes',
+    JSON.stringify(saved)
+  );
+
+  renderImportedRecipe(recipe);
+
+  document.getElementById('importStatus').textContent =
+    '✓ Rezept wurde hinzugefügt.';
+
+  document.getElementById('url').value = '';
+
+  show('recipes');
+}
+
+function renderImportedRecipe(recipe) {
+  const section = document.getElementById('recipes');
+
+  const article = document.createElement('article');
+  article.className = 'card';
+
+  let html = '';
+
+  if (recipe.image) {
+    html +=
+      '<img class="hero" src="' +
+      escapeHtml(recipe.image) +
+      '" alt="">';
+  }
+
+  html += '<h2>' + escapeHtml(recipe.name) + '</h2>';
+
+  const meta = [
+    recipe.totalTime,
+    recipe.yield
+  ].filter(Boolean).join(' · ');
+
+  if (meta) {
+    html += '<div class="meta">⏱ ' +
+      escapeHtml(meta) +
+      '</div>';
+  }
+
+  html += '<h3>Zutaten</h3><ul>';
+
+  recipe.ingredients.forEach(item => {
+    html += '<li>' + escapeHtml(item) + '</li>';
+  });
+
+  html += '</ul>';
+
+  html += '<h3>Zubereitung</h3><ol class="steps">';
+
+  recipe.instructions.forEach(step => {
+    html += '<li>' + escapeHtml(step) + '</li>';
+  });
+
+  html += '</ol>';
+
+  if (recipe.source) {
+    html += '<p class="small">Quelle: ' +
+      escapeHtml(recipe.source) +
+      '</p>';
+  }
+
+  article.innerHTML = html;
+
+  section.appendChild(article);
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text || '';
+  return div.innerHTML;
+}
+
+function loadImportedRecipes() {
+  const saved =
+    JSON.parse(localStorage.getItem('kitchenrabbit_recipes') || '[]');
+
+  saved.forEach(renderImportedRecipe);
+}
+
+window.addEventListener('DOMContentLoaded', loadImportedRecipes);
 function saveWineFile(){const f=document.getElementById('wineFile').files[0];document.getElementById('wineMsg').textContent=f?'Ausgewählt: '+f.name+'. Der vollständige Tabellenimport wird im nächsten Schritt angebunden.':'Bitte eine Datei auswählen.'}
 </script>
 </body>
