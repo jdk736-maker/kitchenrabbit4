@@ -254,9 +254,56 @@ window.recipeImportError = function(message) {
     'Import fehlgeschlagen: ' + message;
 };
 
+    let pendingRecipeForImage = null;
+
 function saveImportedRecipe(recipe) {
+
+  if (
+    recipe.image &&
+    window.AndroidRecipe &&
+    AndroidRecipe.downloadImage
+  ) {
+    pendingRecipeForImage = recipe;
+
+    document.getElementById('importStatus').textContent =
+      'Rezeptbild wird gespeichert …';
+
+    AndroidRecipe.downloadImage(recipe.image);
+    return;
+  }
+
+  finalizeRecipeSave(recipe);
+}
+
+
+window.recipeImageSaved = function(localImageUrl) {
+
+  if (!pendingRecipeForImage) return;
+
+  pendingRecipeForImage.image = localImageUrl;
+
+  const recipe = pendingRecipeForImage;
+  pendingRecipeForImage = null;
+
+  finalizeRecipeSave(recipe);
+};
+
+
+window.recipeImageError = function(message) {
+
+  pendingRecipeForImage = null;
+
+  document.getElementById('importStatus').textContent =
+    'Bild konnte nicht gespeichert werden: ' + message;
+};
+
+
+function finalizeRecipeSave(recipe) {
+
   const saved =
-    JSON.parse(localStorage.getItem('kitchenrabbit_recipes') || '[]');
+    JSON.parse(
+      localStorage.getItem('kitchenrabbit_recipes') || '[]'
+    );
 
   saved.push(recipe);
 
@@ -268,35 +315,32 @@ function saveImportedRecipe(recipe) {
   renderImportedRecipe(recipe);
 
   document.getElementById('importStatus').textContent =
-    '✓ Rezept wurde hinzugefügt.';
+    '✓ Rezept und Bild wurden gespeichert.';
 
   document.getElementById('url').value = '';
 
   show('recipes');
 }
+    function renderImportedRecipe(recipe) {
+    const section = document.getElementById('recipes');
 
-function renderImportedRecipe(recipe) {
-  const section = document.getElementById('recipes');
+    const article = document.createElement('article');
+    article.className = 'card';
 
-  const article = document.createElement('article');
-  article.className = 'card';
+    let html = '';
 
-  let html = '';
+    if (recipe.image) {
+        html += '<img class="hero" src="' +
+            escapeHtml(recipe.image) +
+            '" alt="' + escapeHtml(recipe.name || 'Rezept') + '">';
+    }
 
-  if (recipe.image) {
-    html +=
-      '<img class="hero" src="' +
-      escapeHtml(recipe.image) +
-      '" alt="">';
-  }
+    html += '<h2>' + escapeHtml(recipe.name || 'Rezept') + '</h2>';
 
-  html += '<h2>' + escapeHtml(recipe.name) + '</h2>';
-
-  const meta = [
-    recipe.totalTime,
-    recipe.yield
-  ].filter(Boolean).join(' · ');
-
+    const meta = [
+        recipe.totalTime,
+        recipe.yield
+    ].filter(Boolean).join(' · ');
   if (meta) {
     html += '<div class="meta">⏱ ' +
       escapeHtml(meta) +
