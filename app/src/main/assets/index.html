@@ -38,7 +38,10 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.view{display:n
 <header><h1>KitchenRabbit4</h1><p>Kochen & Wein</p></header>
 <main>
 <section id="recipes" class="view active">
-    <article class="card">
+<button onclick="show('import')" style="width:100%;margin-bottom:18px;">
+  ＋ Rezept hinzufügen
+</button>
+  <article class="card">
   <img class="hero"
        src="https://i.falstaff.com/storage/2023/01/seeviche-c-Thomas-Apolt-2640.jpg?aspect_ratio=4%3A3&crop_gravity=north&width=800"
        alt="Seeviche vom Saibling">
@@ -99,7 +102,6 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.view{display:n
       <div class="wine"><b>Weingut Zimmermann</b>Weißburgunder 2024<br><span class="small">Nahe · ausgewogen zum Lachs</span></div>
     </div>
   </article>
-nline-Dienst benötigt.</p></div></section>
 
 <section id="import" class="view">
   <div class="card">
@@ -138,9 +140,10 @@ nline-Dienst benötigt.</p></div></section>
 <section id="shopping" class="view"><div class="card"><h2>Einkaufsliste</h2><p>Hier können wir als Nächstes Zutaten aus Rezepten automatisch sammeln.</p></div></section>
 </main>
 <nav>
-<button onclick="show('recipes')">🍽️<br>Rezepte</button><button onclick="show('import')">➕<br>Import</button>
-<button onclick="show('wines')">🍷<br>Weine</button><button onclick="show('favorites')">♥<br>Favoriten</button>
-<button onclick="show('shopping')">🛒<br>Einkauf</button>
+  <button onclick="show('recipes')">🍽️<br>Rezepte</button>
+  <button onclick="show('wines')">🍷<br>Weine</button>
+  <button onclick="show('favorites')">♥<br>Favoriten</button>
+  <button onclick="show('shopping')">🛒<br>Einkauf</button>
 </nav>
 <script>
 function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
