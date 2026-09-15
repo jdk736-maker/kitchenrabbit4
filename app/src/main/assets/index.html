@@ -99,6 +99,42 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
   box-shadow:0 4px 12px rgba(0,0,0,.18);
   }
 @media(max-width:550px){.wines{grid-template-columns:1fr}header h1{font-size:28px}}
+#import {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+#import.active {
+  display: block !important;
+}
+
+#import .import-card {
+  display: block !important;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 18px;
+}
+
+#import input {
+  display: block !important;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  margin: 12px 0;
+  font-size: 16px;
+}
+
+#import button {
+  display: block !important;
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -167,10 +203,13 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
     </div>
   </article>
 
-<section id="import" class="view">
-  <div class="card">
-    <h2>➕ Rezept importieren</h2>
-    <p>Füge die URL einer Rezeptseite ein.</p>
+  <section id="import" class="view">
+  <div class="card import-card">
+    <h2>➕ Rezept hinzufügen</h2>
+
+    <p>Füge hier den Link zu einem Rezept ein.</p>
+
+    <label for="url"><b>Rezept-URL</b></label>
 
     <input
       id="url"
@@ -178,13 +217,18 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
       placeholder="https://www.beispiel.de/rezept/..."
     >
 
-    <button type="button" onclick="importRecipe()">
-      Rezept hinzufügen
+    <button
+      type="button"
+      onclick="importRecipe()"
+      class="btn"
+    >
+      Rezept importieren
     </button>
 
     <p id="importStatus" class="small"></p>
   </div>
 </section>
+
     <section id="wines" class="view">
     <div class="card">
         <h2>🍷 Weine</h2>
