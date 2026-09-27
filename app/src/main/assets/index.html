@@ -62,19 +62,6 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
   width:100%;
 }
 
-#import.active{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  min-height:500px;
-  padding:24px 16px 110px;
-}
-
-#import.active .import-card{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-}
 
 #import .card{
   display:block;
@@ -114,9 +101,6 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
   box-sizing: border-box;
 }
 
-#import.active {
-  display: block !important;
-}
 
 #import .import-card {
   display: block !important;
@@ -212,7 +196,7 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
     </div>
   </article>
 
-  <section id="import" class="view" style="display:block !important; background:red !important; min-height:500px !important;">
+  <section id="import" class="view">
   <div class="card import-card">
     <h2>➕ Rezept hinzufügen</h2>
 
@@ -258,7 +242,7 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
 <nav>
   <button onclick="show('recipes')">⌂<br>Rezepte</button>
   <button onclick="show('wines')">🍷<br>Wein</button>
-  <button onclick="document.getElementById('import').style.setProperty('display','block','important');document.getElementById('import').style.setProperty('background','red','important');alert('REZEPT PLUS GEDRÜCKT');">＋<br>Rezept +</button>
+  <button onclick="show('import')">＋<br>Rezept +</button>
   <button onclick="show('favorites')">♡<br>Favoriten</button>
   <button onclick="show('shopping')">☰<br>Mehr</button>
 </nav>
