@@ -258,7 +258,7 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
 <nav>
   <button onclick="show('recipes')">⌂<br>Rezepte</button>
   <button onclick="show('wines')">🍷<br>Wein</button>
-  <button onclick="show('import')">➕<br>Rezept +</button>
+  <button onclick="document.getElementById('import').style.setProperty('display','block','important');document.getElementById('import').style.setProperty('background','red','important');alert('REZEPT PLUS GEDRÜCKT');">＋<br>Rezept +</button>
   <button onclick="show('favorites')">♡<br>Favoriten</button>
   <button onclick="show('shopping')">☰<br>Mehr</button>
 </nav>
