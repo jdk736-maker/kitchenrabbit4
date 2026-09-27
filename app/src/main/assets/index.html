@@ -263,7 +263,21 @@ nav button{background:none;color:#555;padding:7px;font-size:12px}.small{font-siz
   <button onclick="show('shopping')">☰<br>Mehr</button>
 </nav>
 <script>
-function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function show(id) {
+  document.querySelectorAll('.view').forEach(function(view) {
+    view.classList.remove('active');
+    view.style.display = 'none';
+  });
+
+  var target = document.getElementById(id);
+
+  if (target) {
+    target.classList.add('active');
+    target.style.display = 'block';
+  }
+
+  window.scrollTo(0, 0);
+}
 function importRecipe() {
   const url = document.getElementById('url').value.trim();
   const status = document.getElementById('importStatus');
